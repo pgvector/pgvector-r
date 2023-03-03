@@ -1,0 +1,4 @@
+Package: pgvector
+Imports:
+    DBI,
+    RPostgres
