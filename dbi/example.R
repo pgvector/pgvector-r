@@ -11,6 +11,10 @@ vecToDb <- function(v) {
   paste0("[", paste(v, collapse=","), "]")
 }
 
+vecFromDb <- function(v) {
+  lapply(strsplit(substring(v, 2, nchar(v) - 1), ","), as.numeric)
+}
+
 embeddings <- matrix(c(
   1, 1, 1,
   2, 2, 2,
@@ -21,6 +25,7 @@ items <- data.frame(embedding=apply(embeddings, 1, vecToDb))
 invisible(dbAppendTable(db, "items", items))
 
 params <- vecToDb(c(1, 1, 1))
-dbGetQuery(db, "SELECT * FROM items ORDER BY embedding <-> $1 LIMIT 5", params=params)
+result <- dbGetQuery(db, "SELECT * FROM items ORDER BY embedding <-> $1 LIMIT 5", params=params)
+print(vecFromDb(result$embedding))
 
 invisible(dbExecute(db, "CREATE INDEX my_index ON items USING ivfflat (embedding vector_l2_ops)"))
