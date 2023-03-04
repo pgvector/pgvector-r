@@ -7,6 +7,7 @@ invisible(dbExecute(db, "DROP TABLE IF EXISTS items"))
 invisible(dbExecute(db, "CREATE TABLE items (embedding vector(3))"))
 
 vecToDb <- function(v) {
+  stopifnot(is.numeric(v))
   paste0("[", paste(v, collapse=","), "]")
 }
 

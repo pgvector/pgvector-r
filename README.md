@@ -24,6 +24,7 @@ Insert vectors
 
 ```r
 vecToDb <- function(v) {
+  stopifnot(is.numeric(v))
   paste0("[", paste(v, collapse=","), "]")
 }
 
