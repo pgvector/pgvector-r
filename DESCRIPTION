@@ -2,4 +2,5 @@ Package: pgvector
 Version: 0.1.0
 Imports:
     DBI,
+    dbx,
     RPostgres

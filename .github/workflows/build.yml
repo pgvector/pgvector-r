@@ -18,3 +18,4 @@ jobs:
           make
           sudo make install
       - run: Rscript DBI/example.R
+      - run: Rscript dbx/example.R
