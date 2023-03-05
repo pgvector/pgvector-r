@@ -53,7 +53,7 @@ dbExecute(db, "CREATE INDEX my_index ON items USING ivfflat (embedding vector_l2
 
 Use `vector_ip_ops` for inner product and `vector_cosine_ops` for cosine distance
 
-See a [full example](dbi/example.R)
+See a [full example](DBI/example.R)
 
 ## Contributing
 
@@ -82,5 +82,5 @@ remotes::install_deps(dependencies=TRUE)
 And run:
 
 ```sh
-Rscript dbi/example.R
+Rscript DBI/example.R
 ```

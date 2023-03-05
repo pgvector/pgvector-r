@@ -17,4 +17,4 @@ jobs:
           cd pgvector
           make
           sudo make install
-      - run: Rscript dbi/example.R
+      - run: Rscript DBI/example.R
