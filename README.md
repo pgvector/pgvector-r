@@ -23,7 +23,7 @@ dbExecute(db, "CREATE TABLE items (embedding vector(3))")
 Insert vectors
 
 ```r
-vecToDb <- function(v) {
+pgvector.serialize <- function(v) {
   stopifnot(is.numeric(v))
   paste0("[", paste(v, collapse=","), "]")
 }
@@ -34,14 +34,14 @@ embeddings <- matrix(c(
   1, 1, 2
 ), nrow=3, byrow=TRUE)
 
-items <- data.frame(embedding=apply(embeddings, 1, vecToDb))
+items <- data.frame(embedding=apply(embeddings, 1, pgvector.serialize))
 dbAppendTable(db, "items", items)
 ```
 
 Get the nearest neighbors
 
 ```r
-params <- vecToDb(c(1, 2, 3))
+params <- pgvector.serialize(c(1, 2, 3))
 dbGetQuery(db, "SELECT * FROM items ORDER BY embedding <-> $1 LIMIT 5", params=params)
 ```
 
