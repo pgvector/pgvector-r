@@ -15,6 +15,12 @@ Follow the instructions for your database library:
 
 ## DBI
 
+Enable the extension
+
+```r
+dbExecute(db, "CREATE EXTENSION IF NOT EXISTS vector")
+```
+
 Create a table
 
 ```r
@@ -59,6 +65,12 @@ Use `vector_ip_ops` for inner product and `vector_cosine_ops` for cosine distanc
 See a [full example](DBI/example.R)
 
 ## dbx
+
+Enable the extension
+
+```r
+dbxExecute(db, "CREATE EXTENSION IF NOT EXISTS vector")
+```
 
 Create a table
 
