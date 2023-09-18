@@ -24,7 +24,7 @@ dbExecute(db, "CREATE EXTENSION IF NOT EXISTS vector")
 Create a table
 
 ```r
-dbExecute(db, "CREATE TABLE items (embedding vector(3))")
+dbExecute(db, "CREATE TABLE items (id bigserial PRIMARY KEY, embedding vector(3))")
 ```
 
 Insert vectors
@@ -75,7 +75,7 @@ dbxExecute(db, "CREATE EXTENSION IF NOT EXISTS vector")
 Create a table
 
 ```r
-dbxExecute(db, "CREATE TABLE items (embedding vector(3))")
+dbxExecute(db, "CREATE TABLE items (id bigserial PRIMARY KEY, embedding vector(3))")
 ```
 
 Insert vectors

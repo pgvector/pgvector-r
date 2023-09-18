@@ -4,7 +4,7 @@ db <- dbxConnect(adapter="postgres", dbname="pgvector_r_test")
 
 invisible(dbxExecute(db, "CREATE EXTENSION IF NOT EXISTS vector"))
 invisible(dbxExecute(db, "DROP TABLE IF EXISTS items"))
-invisible(dbxExecute(db, "CREATE TABLE items (embedding vector(3))"))
+invisible(dbxExecute(db, "CREATE TABLE items (id bigserial PRIMARY KEY, embedding vector(3))"))
 
 pgvector.serialize <- function(v) {
   stopifnot(is.numeric(v))
@@ -28,4 +28,4 @@ params <- pgvector.serialize(c(1, 1, 1))
 result <- dbxSelect(db, "SELECT * FROM items ORDER BY embedding <-> ? LIMIT 5", params=params)
 print(pgvector.unserialize(result$embedding))
 
-invisible(dbxExecute(db, "CREATE INDEX my_index ON items USING ivfflat (embedding vector_l2_ops)"))
+invisible(dbxExecute(db, "CREATE INDEX ON items USING hnsw (embedding vector_l2_ops)"))
