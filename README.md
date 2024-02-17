@@ -4,7 +4,7 @@
 
 Supports [DBI](https://github.com/r-dbi/DBI) and [dbx](https://github.com/ankane/dbx)
 
-[![Build Status](https://github.com/pgvector/pgvector-r/workflows/build/badge.svg?branch=master)](https://github.com/pgvector/pgvector-r/actions)
+[![Build Status](https://github.com/pgvector/pgvector-r/actions/workflows/build.yml/badge.svg)](https://github.com/pgvector/pgvector-r/actions)
 
 ## Getting Started
 
