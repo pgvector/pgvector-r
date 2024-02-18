@@ -55,9 +55,9 @@ dbGetQuery(db, "SELECT * FROM items ORDER BY embedding <-> $1 LIMIT 5", params=p
 Add an approximate index
 
 ```r
-dbExecute(db, "CREATE INDEX ON items USING ivfflat (embedding vector_l2_ops) WITH (lists = 100)")
-# or
 dbExecute(db, "CREATE INDEX ON items USING hnsw (embedding vector_l2_ops)")
+# or
+dbExecute(db, "CREATE INDEX ON items USING ivfflat (embedding vector_l2_ops) WITH (lists = 100)")
 ```
 
 Use `vector_ip_ops` for inner product and `vector_cosine_ops` for cosine distance
@@ -106,9 +106,9 @@ dbxSelect(db, "SELECT * FROM items ORDER BY embedding <-> ? LIMIT 5", params=par
 Add an approximate index
 
 ```r
-dbxExecute(db, "CREATE INDEX ON items USING ivfflat (embedding vector_l2_ops) WITH (lists = 100)")
-# or
 dbxExecute(db, "CREATE INDEX ON items USING hnsw (embedding vector_l2_ops)")
+# or
+dbxExecute(db, "CREATE INDEX ON items USING ivfflat (embedding vector_l2_ops) WITH (lists = 100)")
 ```
 
 Use `vector_ip_ops` for inner product and `vector_cosine_ops` for cosine distance
