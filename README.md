@@ -13,6 +13,10 @@ Follow the instructions for your database library:
 - [DBI](#dbi)
 - [dbx](#dbx)
 
+Or check out an example:
+
+- [Embeddings](examples/openai/example.R) with OpenAI
+
 ## DBI
 
 Enable the extension
@@ -130,18 +134,17 @@ To get started with development:
 git clone https://github.com/pgvector/pgvector-r.git
 cd pgvector-r
 createdb pgvector_r_test
-```
-
-In R, do:
-
-```r
-install.packages("remotes")
-remotes::install_deps(dependencies=TRUE)
-```
-
-And run:
-
-```sh
+Rscript -e "install.packages('remotes', repos='https://cloud.r-project.org')"
+Rscript -e "remotes::install_deps(dependencies=TRUE)"
 Rscript DBI/example.R
 Rscript dbx/example.R
+```
+
+To run an example:
+
+```sh
+cd examples/openai
+createdb pgvector_example
+Rscript -e "remotes::install_deps(dependencies=TRUE)"
+Rscript example.R
 ```
