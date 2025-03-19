@@ -36,7 +36,7 @@ dbExecute(db, "CREATE TABLE items (id bigserial PRIMARY KEY, embedding vector(3)
 Insert vectors
 
 ```r
-pgvector.serialize <- function(vec) {
+encodeVector <- function(vec) {
   stopifnot(is.numeric(vec))
   paste0("[", paste(vec, collapse=","), "]")
 }
@@ -47,14 +47,14 @@ embeddings <- list(
   c(1, 1, 2)
 )
 
-items <- data.frame(embedding=sapply(embeddings, pgvector.serialize))
+items <- data.frame(embedding=sapply(embeddings, encodeVector))
 dbAppendTable(db, "items", items)
 ```
 
 Get the nearest neighbors
 
 ```r
-params <- list(pgvector.serialize(c(1, 2, 3)))
+params <- list(encodeVector(c(1, 2, 3)))
 dbGetQuery(db, "SELECT * FROM items ORDER BY embedding <-> $1 LIMIT 5", params=params)
 ```
 
@@ -87,7 +87,7 @@ dbxExecute(db, "CREATE TABLE items (id bigserial PRIMARY KEY, embedding vector(3
 Insert vectors
 
 ```r
-pgvector.serialize <- function(vec) {
+encodeVector <- function(vec) {
   stopifnot(is.numeric(vec))
   paste0("[", paste(vec, collapse=","), "]")
 }
@@ -98,14 +98,14 @@ embeddings <- list(
   c(1, 1, 2)
 )
 
-items <- data.frame(embedding=sapply(embeddings, pgvector.serialize))
+items <- data.frame(embedding=sapply(embeddings, encodeVector))
 dbxInsert(db, "items", items)
 ```
 
 Get the nearest neighbors
 
 ```r
-params <- list(pgvector.serialize(c(1, 2, 3)))
+params <- list(encodeVector(c(1, 2, 3)))
 dbxSelect(db, "SELECT * FROM items ORDER BY embedding <-> ? LIMIT 5", params=params)
 ```
 

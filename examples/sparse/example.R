@@ -29,7 +29,7 @@ embed <- function(inputs) {
   })
 }
 
-pgvector.serialize <- function(vec) {
+encodeSparseVector <- function(vec) {
   stopifnot(inherits(vec, "sparseVector"))
   elements <- mapply(function(i, v) { paste0(i, ":", v) }, vec@i, vec@x)
   paste0("{", paste0(elements, collapse=","), "}/", length(vec))
@@ -41,11 +41,11 @@ input <- c(
   "The bear is growling"
 )
 embeddings <- embed(input)
-items <- data.frame(content=input, embedding=sapply(embeddings, pgvector.serialize))
+items <- data.frame(content=input, embedding=sapply(embeddings, encodeSparseVector))
 invisible(dbAppendTable(db, "documents", items))
 
 query <- "forest"
 queryEmbedding <- embed(c(query))[[1]]
-params <- list(pgvector.serialize(queryEmbedding))
+params <- list(encodeSparseVector(queryEmbedding))
 result <- dbGetQuery(db, "SELECT content FROM documents ORDER BY embedding <#> $1 LIMIT 5", params=params)
 print(result$content)

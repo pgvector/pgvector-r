@@ -19,7 +19,7 @@ embed <- function(input) {
   lapply((resp |> resp_body_json())$data, function(x) { unlist(x$embedding) })
 }
 
-pgvector.serialize <- function(vec) {
+encodeVector <- function(vec) {
   stopifnot(is.numeric(vec))
   paste0("[", paste(vec, collapse=","), "]")
 }
@@ -30,11 +30,11 @@ input <- c(
   "The bear is growling"
 )
 embeddings <- embed(input)
-items <- data.frame(content=input, embedding=sapply(embeddings, pgvector.serialize))
+items <- data.frame(content=input, embedding=sapply(embeddings, encodeVector))
 invisible(dbAppendTable(db, "documents", items))
 
 query <- "forest"
 queryEmbedding <- embed(c(query))[[1]]
-params <- list(pgvector.serialize(queryEmbedding))
+params <- list(encodeVector(queryEmbedding))
 result <- dbGetQuery(db, "SELECT content FROM documents ORDER BY embedding <=> $1 LIMIT 5", params=params)
 print(result$content)
