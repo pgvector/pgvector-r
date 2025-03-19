@@ -30,11 +30,11 @@ input <- c(
   "The bear is growling"
 )
 embeddings <- embed(input)
-items <- data.frame(content=input, embedding=unlist(lapply(embeddings, pgvector.serialize)))
+items <- data.frame(content=input, embedding=sapply(embeddings, pgvector.serialize))
 invisible(dbAppendTable(db, "documents", items))
 
 query <- "forest"
 queryEmbedding <- embed(c(query))[[1]]
-params <- pgvector.serialize(queryEmbedding)
+params <- list(pgvector.serialize(queryEmbedding))
 result <- dbGetQuery(db, "SELECT content FROM documents ORDER BY embedding <=> $1 LIMIT 5", params=params)
 print(result$content)
