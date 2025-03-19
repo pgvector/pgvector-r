@@ -11,8 +11,8 @@ pgvector.serialize <- function(vec) {
   paste0("[", paste(vec, collapse=","), "]")
 }
 
-pgvector.unserialize <- function(v) {
-  as.numeric(strsplit(substring(v, 2, nchar(v) - 1), ",")[[1]])
+pgvector.unserialize <- function(str) {
+  as.numeric(strsplit(substring(str, 2, nchar(str) - 1), ",")[[1]])
 }
 
 embeddings <- list(
