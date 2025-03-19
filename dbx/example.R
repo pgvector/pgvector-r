@@ -6,9 +6,9 @@ invisible(dbxExecute(db, "CREATE EXTENSION IF NOT EXISTS vector"))
 invisible(dbxExecute(db, "DROP TABLE IF EXISTS items"))
 invisible(dbxExecute(db, "CREATE TABLE items (id bigserial PRIMARY KEY, embedding vector(3))"))
 
-pgvector.serialize <- function(v) {
-  stopifnot(is.numeric(v))
-  paste0("[", paste(v, collapse=","), "]")
+pgvector.serialize <- function(vec) {
+  stopifnot(is.numeric(vec))
+  paste0("[", paste(vec, collapse=","), "]")
 }
 
 pgvector.unserialize <- function(v) {

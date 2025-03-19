@@ -19,9 +19,9 @@ embed <- function(input) {
   lapply((resp |> resp_body_json())$data, function(x) { unlist(x$embedding) })
 }
 
-pgvector.serialize <- function(v) {
-  stopifnot(is.numeric(v))
-  paste0("[", paste(v, collapse=","), "]")
+pgvector.serialize <- function(vec) {
+  stopifnot(is.numeric(vec))
+  paste0("[", paste(vec, collapse=","), "]")
 }
 
 input <- c(

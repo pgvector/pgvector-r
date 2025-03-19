@@ -36,9 +36,9 @@ dbExecute(db, "CREATE TABLE items (id bigserial PRIMARY KEY, embedding vector(3)
 Insert vectors
 
 ```r
-pgvector.serialize <- function(v) {
-  stopifnot(is.numeric(v))
-  paste0("[", paste(v, collapse=","), "]")
+pgvector.serialize <- function(vec) {
+  stopifnot(is.numeric(vec))
+  paste0("[", paste(vec, collapse=","), "]")
 }
 
 embeddings <- matrix(c(
@@ -87,9 +87,9 @@ dbxExecute(db, "CREATE TABLE items (id bigserial PRIMARY KEY, embedding vector(3
 Insert vectors
 
 ```r
-pgvector.serialize <- function(v) {
-  stopifnot(is.numeric(v))
-  paste0("[", paste(v, collapse=","), "]")
+pgvector.serialize <- function(vec) {
+  stopifnot(is.numeric(vec))
+  paste0("[", paste(vec, collapse=","), "]")
 }
 
 embeddings <- matrix(c(
