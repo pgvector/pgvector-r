@@ -17,6 +17,7 @@ Or check out an example:
 
 - [Embeddings](examples/openai/example.R) with OpenAI
 - [Binary embeddings](examples/cohere/example.R) with Cohere
+- [Sparse search](examples/sparse/example.R) with Text Embeddings Inference
 
 ## DBI
 

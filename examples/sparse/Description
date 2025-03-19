@@ -1,0 +1,6 @@
+Package: example
+Version: 0.1.0
+Imports:
+    DBI,
+    httr2,
+    RPostgres
