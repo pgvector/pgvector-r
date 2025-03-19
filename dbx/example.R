@@ -15,16 +15,16 @@ pgvector.unserialize <- function(v) {
   lapply(strsplit(substring(v, 2, nchar(v) - 1), ","), as.numeric)
 }
 
-embeddings <- matrix(c(
-  1, 1, 1,
-  2, 2, 2,
-  1, 1, 2
-), nrow=3, byrow=TRUE)
+embeddings <- list(
+  c(1, 1, 1),
+  c(2, 2, 2),
+  c(1, 1, 2)
+)
 
-items <- data.frame(embedding=apply(embeddings, 1, pgvector.serialize))
+items <- data.frame(embedding=sapply(embeddings, pgvector.serialize))
 invisible(dbxInsert(db, "items", items))
 
-params <- pgvector.serialize(c(1, 1, 1))
+params <- list(pgvector.serialize(c(1, 1, 1)))
 result <- dbxSelect(db, "SELECT * FROM items ORDER BY embedding <-> ? LIMIT 5", params=params)
 print(pgvector.unserialize(result$embedding))
 
