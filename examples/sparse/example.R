@@ -30,6 +30,7 @@ embed <- function(inputs) {
 }
 
 pgvector.serialize <- function(vec) {
+  stopifnot(inherits(vec, "sparseVector"))
   elements <- mapply(function(i, v) { paste0(i, ":", v) }, vec@i, vec@x)
   paste0("{", paste0(elements, collapse=","), "}/", length(vec))
 }
