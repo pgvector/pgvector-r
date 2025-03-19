@@ -12,7 +12,7 @@ pgvector.serialize <- function(vec) {
 }
 
 pgvector.unserialize <- function(v) {
-  lapply(strsplit(substring(v, 2, nchar(v) - 1), ","), as.numeric)
+  as.numeric(strsplit(substring(v, 2, nchar(v) - 1), ",")[[1]])
 }
 
 embeddings <- list(
@@ -26,6 +26,6 @@ invisible(dbAppendTable(db, "items", items))
 
 params <- list(pgvector.serialize(c(1, 1, 1)))
 result <- dbGetQuery(db, "SELECT * FROM items ORDER BY embedding <-> $1 LIMIT 5", params=params)
-print(pgvector.unserialize(result$embedding))
+print(lapply(result$embedding, pgvector.unserialize))
 
 invisible(dbExecute(db, "CREATE INDEX ON items USING hnsw (embedding vector_l2_ops)"))
