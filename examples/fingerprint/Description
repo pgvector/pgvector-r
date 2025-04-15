@@ -1,0 +1,8 @@
+Package: example
+Version: 0.1.0
+Imports:
+    ChemmineR,
+    DBI,
+    RPostgres
+Remotes:
+    bioc::release/ChemmineR
