@@ -5,18 +5,18 @@ db <- dbConnect(RPostgres::Postgres(), dbname="pgvector_example")
 
 invisible(dbExecute(db, "CREATE EXTENSION IF NOT EXISTS vector"))
 invisible(dbExecute(db, "DROP TABLE IF EXISTS documents"))
-invisible(dbExecute(db, "CREATE TABLE documents (id bigserial PRIMARY KEY, content text, embedding bit(1024))"))
+invisible(dbExecute(db, "CREATE TABLE documents (id bigserial PRIMARY KEY, content text, embedding bit(1536))"))
 
 toBits <- function(ubinary) {
   paste0(sapply(ubinary, function(v) { rev(as.integer(intToBits(v)[1:8])) }), collapse="")
 }
 
 embed <- function(texts, inputType) {
-  url <- "https://api.cohere.com/v1/embed"
+  url <- "https://api.cohere.com/v2/embed"
   token <- Sys.getenv("CO_API_KEY")
   data <- list(
     texts=texts,
-    model="embed-english-v3.0",
+    model="embed-v4.0",
     input_type=inputType,
     embedding_types=list("ubinary")
   )
